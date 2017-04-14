@@ -1,7 +1,7 @@
 ﻿
 var app = angular.module('app');
 
-app.controller('ReadTens', function ReadTensController($scope, TenService) {
+app.controller('ReadTens', function ReadTensController($scope, $http, Backand, TenService) {
     $scope.error = '';
     $scope.min = 1;
     $scope.TenService = TenService;
@@ -29,8 +29,27 @@ app.controller('ReadTens', function ReadTensController($scope, TenService) {
         if (valid != '') {
             sc.error = valid;
             sc.valido = false;
+        } else {
+            if (!TenService.isValidDate(sc.dt)) {
+                sc.error = 'Data inválida';
+                sc.valido = false;
+            } else {
+                var novoSorteio = {
+                    "raffle": TenService.formatDateToServer(sc.dt),
+                    "tens": sc.ten
+                };
+                $http.post(Backand.getApiUrl() + '/1/objects/Ten', novoSorteio, {
+                    headers: { 'AnonymousToken': '9e3d4db6-6fd2-4103-9a15-7eea60c6026a' }
+                })
+                .then(function (response) {
+                    var id = response.data.__metadata.id;
+                    $scope.tens.push(novoSorteio);
+                })
+                .catch(function (_error) {
+                    sc.error = _error;
+                });
+            }
         }
-
     };
 
 });

@@ -26,5 +26,26 @@ app.service('TenService', function () {
         return '';
     };
 
+    this.formatDateToServer = function (dt) {
+        var day = dt.getDate();
+        if (day.toString().length == 1)
+            day = "0" + day;
+        var month = dt.getMonth() + 1;
+        if (month.toString().length == 1)
+            month = "0" + month;
+        var year = dt.getFullYear();
+        return year + '-' + month + '-' + day;
+    }
+
+    this.isValidDate = function (dt) {
+        var ret = false;
+        if (Object.prototype.toString.call(dt) === "[object Date]") {
+            if (!isNaN(dt.getTime())) { 
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
 
 });
