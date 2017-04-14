@@ -22,18 +22,19 @@
 </head>
 <body>
 
-    <div ng-app="app">
+    <div class="container" ng-app="app">
 
         <div ng-controller="ReadTens">
 
+            <div class="page-header">
+                <h1>Loto Fácil</h1>
+            </div>
+
             <div ng-controller="DatepickerPopupDemoCtrl">
-                <h4>Incluir Nova Dezena</h4>
                 <div class="row">
-                    <div class="col-md-3">
-                        <h5>Sorteio</h5>
+                    <div class="col-md-2">
+                        Sorteio
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-2">
                         <p class="input-group">
                             <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
@@ -44,22 +45,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <h5>Dezenas</h5>
-                        <p>{{ten.tens}}</p>
+                    <div class="col-md-2">
+                        Dezenas
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <input type="text" class="form-control" ng-model="ten" mask="29 " mask-repeat='15' max='25' />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <h5>Confira</h5>
-
-                        <p>Sorteio ({{dt| date:'dd/MM/yyyy'}} - {{dt| date:'fullDate'}})</p>
-                        <p>{{ten}}</p>
+                    <div class="col-md-2">
+                        Confira
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 alert alert-info">
+                        ({{dt| date:'dd/MM/yyyy'}} - {{dt| date:'fullDate'}}) - {{ten}}
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h5 ng-hide="valido">
+                        <h5 ng-hide="valido" class="row alert alert-danger">
                             Erro, {{error}}
                         </h5>
                     </div>
@@ -81,30 +81,36 @@
 
             <hr />
 
+            <div class="page-header">
+                <h1>Últimas Dezenas</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sorteio</th>
+                                <th>Dezena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ten in tens | orderBy: '-raffle' ">
+                                <td>{{$index+1}}</td>
+                                <td>{{ten.raffle}}</td>
+                                <td>{{ten.tens}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-            <h4>Últimas Dezenas</h4>
-            <ul class="list-unstyled">
-                <li ng-repeat="ten in tens">
 
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p>Sorteio ({{ten.raffle}})</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <p>{{ten.tens}}</p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-
-            <input type="text" ng-model="min" placeholder="Entre com as dezenas 01 02 ..." />
+            <!--<input type="text" ng-model="min" placeholder="Entre com as dezenas 01 02 ..." />
             <p>Início: {{ min }}</p>
-            <p>Dezenas para inclusão: {{ TenService.randomTen(min, 25) }}</p>
+            <p>Dezenas para inclusão: {{ TenService.randomTen(min, 25) }}</p>-->
 
         </div>
-
     </div>
 
 </body>
