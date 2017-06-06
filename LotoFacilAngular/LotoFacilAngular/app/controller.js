@@ -2,51 +2,56 @@
 var app = angular.module('app');
 
 app.controller('ReadTens', function ReadTensController($scope, $http, Backand, TenService) {
+    
     $scope.error = '';
     $scope.min = 1;
     $scope.TenService = TenService;
-    $scope.valido = true;
-    $scope.tens = [
-      {
-          raffle: '01/02/2017',
-          tens: '01 02 03 06 10 11 17 18 19 20 21 22 23 24 25'
-      },
-      {
-          raffle: '01/03/2017',
-          tens: '11 17 18 19 20 21 22 23 24 25 01 02 03 06 10 '
-      },
-      {
-          raffle: '01/04/2017',
-          tens: '01 02 17 18 19 20 21 03 06 10 11 22 23 24 25'
-      }
-    ];
+    $scope.limparAvisos = function () {
+        $scope.mostrarSucesso = false;
+        $scope.mostrarErro = false;
+        $scope.dt = '';
+        $scope.ten = '';
+    };
+    $scope.limparAvisos();
+
+    var myPromise = TenService.GetTenListFromServer();
+    myPromise.then(function (resolve) {
+        $scope.tens = resolve;
+    }, function (reject) {
+        $scope.error = reject;
+    });
+
 
     $scope.incluir = function () {
+        $scope.limparAvisos();
         var sc = this;
         sc.error = '';
-        sc.valido = true;
         var valid = TenService.validateTen(sc.ten);
         if (valid != '') {
             sc.error = valid;
-            sc.valido = false;
+            $scope.mostrarErro = true;
         } else {
             if (!TenService.isValidDate(sc.dt)) {
                 sc.error = 'Data inválida';
-                sc.valido = false;
+                $scope.mostrarErro = true;
             } else {
                 var novoSorteio = {
                     "raffle": TenService.formatDateToServer(sc.dt),
                     "tens": sc.ten
                 };
-                $http.post(Backand.getApiUrl() + '/1/objects/Ten', novoSorteio, {
-                    headers: { 'AnonymousToken': '9e3d4db6-6fd2-4103-9a15-7eea60c6026a' }
-                })
-                .then(function (response) {
-                    var id = response.data.__metadata.id;
-                    $scope.tens.push(novoSorteio);
-                })
-                .catch(function (_error) {
-                    sc.error = _error;
+                var myPromise = TenService.CreateTenFromServer();
+                myPromise.then(function (resolve) {
+                    var novoId = resolve.__metadata.id;
+                    if (novoId > 0) {
+                        $scope.dt = null;
+                        $scope.sucesso = 'Dezena incluída com sucesso.' + novoId;
+                        $scope.limparAvisos();
+                        $scope.mostrarSucesso = true;
+                        $scope.tens.push(novoSorteio);
+                    }
+                }, function (reject) {
+                    $scope.error = reject;
+                    $scope.mostrarErro = true;
                 });
             }
         }
@@ -56,12 +61,12 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
 
 app.controller('DatepickerPopupDemoCtrl', function ($scope) {
 
-    $scope.today = function() {
+    $scope.today = function () {
         $scope.dt = new Date();
     };
     $scope.today();
 
-    $scope.clear = function() {
+    $scope.clear = function () {
         $scope.dt = null;
     };
 
@@ -85,18 +90,18 @@ app.controller('DatepickerPopupDemoCtrl', function ($scope) {
         return mode === 'day' && (date.getDay() === 0);
     }
 
-    $scope.toggleMin = function() {
+    $scope.toggleMin = function () {
         $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
         $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
     $scope.toggleMin();
 
-    $scope.open1 = function() {
+    $scope.open1 = function () {
         $scope.popup1.opened = true;
     };
 
-    $scope.setDate = function(year, month, day) {
+    $scope.setDate = function (year, month, day) {
         $scope.dt = new Date(year, month, day);
     };
 

@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-2">
                         <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
+                            <input ng-change="limparAvisos()" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" current-text="Hoje" clear-text="Limpar" close-text="Fechar" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
@@ -53,7 +53,7 @@
                         Dezenas
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" ng-model="ten" mask="29 " mask-repeat='15' max='25' />
+                        <input ng-change="limparAvisos()" type="text" class="form-control" ng-model="ten" mask="29 " mask-repeat='15' max='25' />
                     </div>
                 </div>
                 <div class="row">
@@ -76,7 +76,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h5 ng-hide="valido" class="row alert alert-danger">
+                        <h5 ng-show="mostrarSucesso" class="row alert alert-success">
+                            {{sucesso}}
+                        </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 ng-show="mostrarErro" class="row alert alert-danger">
                             Erro, {{error}}
                         </h5>
                     </div>

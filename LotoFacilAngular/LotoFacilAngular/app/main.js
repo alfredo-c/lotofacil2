@@ -2,7 +2,7 @@
 
 //Update Angular configuration section
 app.config(function (BackandProvider) {
-    BackandProvider.setAppName('lotofacil');
-    BackandProvider.setSignUpToken('9e3d4db6-6fd2-4103-9a15-7eea60c6026a');
-    BackandProvider.setAnonymousToken('9e3d4db6-6fd2-4103-9a15-7eea60c6026a');
+    BackandProvider.setAppName('lotofacil2');
+    BackandProvider.setSignUpToken('5475a57b-55d2-4c1a-812c-d857cbb48157');
+    BackandProvider.setAnonymousToken('5475a57b-55d2-4c1a-812c-d857cbb48157');
 })

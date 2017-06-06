@@ -1,6 +1,6 @@
 ﻿var app = angular.module('app');
 
-app.service('TenService', function () {
+app.service('TenService', function ($q, $http, Backand) {
     this.randomTen = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
@@ -40,11 +40,42 @@ app.service('TenService', function () {
     this.isValidDate = function (dt) {
         var ret = false;
         if (Object.prototype.toString.call(dt) === "[object Date]") {
-            if (!isNaN(dt.getTime())) { 
+            if (!isNaN(dt.getTime())) {
                 ret = true;
             }
         }
         return ret;
+    }
+
+    this.GetTenListFromServer = function () {
+        var deferred = $q.defer();
+        Backand.object.getList("Ten", {
+            "pageSize": 20,
+            "pageNumber": 1,
+            "filter": [],
+            "sort": []
+        })
+        .then(function (response) {
+            deferred.resolve(response.data);
+        })
+        .catch(function (_error) {
+            deferred.reject(_error);
+        });
+        return deferred.promise;
+    }
+
+    this.CreateTenFromServer = function (novoSorteio) {
+        var deferred = $q.defer();
+        $http.post(Backand.getApiUrl() + '/1/objects/Ten', novoSorteio, {
+            headers: { 'AnonymousToken': '5475a57b-55d2-4c1a-812c-d857cbb48157' }
+        })
+        .then(function (response) {
+            deferred.resolve(response.data);
+        })
+        .catch(function (_error) {
+            deferred.reject(_error);
+        });
+        return deferred.promise;
     }
 
 
