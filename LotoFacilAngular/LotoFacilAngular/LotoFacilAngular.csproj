@@ -68,6 +68,7 @@
     <Content Include="app\controller.js" />
     <Content Include="app\main.js" />
     <Content Include="app\services.js" />
+    <Content Include="img\delete.png" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
   </ItemGroup>

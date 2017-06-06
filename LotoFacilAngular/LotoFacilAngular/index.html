@@ -101,6 +101,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Deletar</th>
                                 <th>Sorteio</th>
                                 <th>Dezena</th>
                             </tr>
@@ -108,6 +109,7 @@
                         <tbody>
                             <tr ng-repeat="ten in tens | orderBy: '-raffle' ">
                                 <td>{{$index+1}}</td>
+                                <td><img style="cursor:pointer;" ng-click="deletar(ten)" src="/img/delete.png" title="{{ten.id}}" /></td>
                                 <td>{{ten.raffle}}</td>
                                 <td>{{ten.tens}}</td>
                             </tr>

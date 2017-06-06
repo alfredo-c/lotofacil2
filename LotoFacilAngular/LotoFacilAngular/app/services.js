@@ -78,5 +78,23 @@ app.service('TenService', function ($q, $http, Backand) {
         return deferred.promise;
     }
 
+    this.DeleteTenFromServer = function (id) {
+        var deferred = $q.defer();
+        $http({
+            method: 'DELETE',
+            url: Backand.getApiUrl() + '/1/objects/Ten/' + id,
+            headers: { 'AnonymousToken': '5475a57b-55d2-4c1a-812c-d857cbb48157' }
+        })
+        .then(function (response) {
+            deferred.resolve(response.data);
+        })
+        .catch(function (_error) {
+            deferred.reject(_error);
+        });
+
+
+        return deferred.promise;
+    }
+
 
 });

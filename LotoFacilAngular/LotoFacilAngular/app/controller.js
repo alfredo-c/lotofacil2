@@ -21,7 +21,6 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
         $scope.error = reject;
     });
 
-
     $scope.incluir = function () {
         $scope.limparAvisos();
         var sc = this;
@@ -39,14 +38,15 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
                     "raffle": TenService.formatDateToServer(sc.dt),
                     "tens": sc.ten
                 };
-                var myPromise = TenService.CreateTenFromServer();
+                var myPromise = TenService.CreateTenFromServer(novoSorteio);
                 myPromise.then(function (resolve) {
                     var novoId = resolve.__metadata.id;
                     if (novoId > 0) {
                         $scope.dt = null;
-                        $scope.sucesso = 'Dezena incluída com sucesso.' + novoId;
+                        $scope.sucesso = 'Dezena ' + novoId + ' incluída com sucesso.';
                         $scope.limparAvisos();
                         $scope.mostrarSucesso = true;
+                        novoSorteio.id = novoId;
                         $scope.tens.push(novoSorteio);
                     }
                 }, function (reject) {
@@ -55,6 +55,25 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
                 });
             }
         }
+    };
+
+    $scope.deletar = function (ten) {
+        $scope.limparAvisos();
+        var myPromise = TenService.DeleteTenFromServer(ten.id);
+        myPromise.then(function (resolve) {
+            var novoId = resolve.__metadata.id;
+            if (novoId > 0) {
+                $scope.dt = null;
+                $scope.sucesso = 'Dezena ' + novoId + ' excluída com sucesso.';
+                $scope.limparAvisos();
+                $scope.mostrarSucesso = true;
+                $scope.tens.splice($scope.tens.indexOf(ten), 1);
+            }
+        }, function (reject) {
+            $scope.error = reject;
+            $scope.mostrarErro = true;
+        });
+
     };
 
 });
