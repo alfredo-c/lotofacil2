@@ -14,7 +14,7 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
     };
     $scope.limparAvisos();
 
-    var myPromise = TenService.GetTenListFromServer();
+    var myPromise = TenService.GetTenListFromServer(2000);
     myPromise.then(function (resolve) {
         $scope.tens = resolve;
     }, function (reject) {
@@ -38,6 +38,7 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
                     "raffle": TenService.formatDateToServer(sc.dt),
                     "tens": sc.ten
                 };
+                novoSorteio = { "raffle": "xxx", "tens": "xxx" };
                 var myPromise = TenService.CreateTenFromServer(novoSorteio);
                 myPromise.then(function (resolve) {
                     var novoId = resolve.__metadata.id;
@@ -75,6 +76,25 @@ app.controller('ReadTens', function ReadTensController($scope, $http, Backand, T
         });
 
     };
+
+    $scope.deletarTodas = function () {
+        var myPromise = TenService.GetTenListFromServer(2000);
+        myPromise.then(function (resolve) {
+            angular.forEach(resolve, function (value) {
+                TenService.DeleteTenFromServer(value.id);
+            });
+        }, function (reject) {
+            $scope.error = reject;
+        });
+    }
+
+    $scope.reset = function () {
+        $scope.deletarTodas();
+        var tens = TenService.CreateTenFromServerBatch();
+        angular.forEach(tens, function (ten) {
+            TenService.CreateTenFromServer(ten);
+        });
+    }
 
 });
 
