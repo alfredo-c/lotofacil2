@@ -92,8 +92,69 @@
 
             <hr />
 
+            <h4>Resumo</h4>
+
+            <h5><b>13 Dezenas escolhidas:</b> {{Ten13ValidaExibir}}</h5>
+
+            <h5><b>Frequencia 10:</b> {{frequencia10}}</h5>
+            <h5><b>Frequencia 20:</b> {{frequencia20}}</h5>
+            <h5><b>Frequencia 1020:</b> {{frequencia1020}}</h5>
+            <h5><b>Frequencia Todas:</b> {{frequenciaTodas}}</h5>
+            <h5><b>Ordenado:</b> {{mapaGeral}}</h5>
+            <h5><b>Menos 5:</b> {{mapaGeralMenos5Menos}}</h5>
+            <h5><b>Mais 13:</b>{{mapaGeralMais13Provavel}}</h5>
+            
+
             <div class="page-header">
-                <h1>Últimas Dezenas</h1>
+                <h1>Últimas 10 Dezenas</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sorteio</th>
+                                <th>Dezena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ten in tens10 | orderBy: '-raffle' ">
+                                <td>{{$index+1}}</td>
+                                <td>{{ten.raffle}}</td>
+                                <td>{{ten.tens}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Últimas 20 Dezenas</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sorteio</th>
+                                <th>Dezena</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ten in tens20 | orderBy: '-raffle' ">
+                                <td>{{$index+1}}</td>
+                                <td>{{ten.raffle}}</td>
+                                <td>{{ten.tens}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Todas Dezenas {{tens.length}}</h1>
                 <h5>Remover tudo.. <img style="cursor:pointer;" ng-click="deletarTodas()" src="/img/delete.png" /></h5>
                 <div style="cursor:pointer;" ng-click="reset()">Resetar histórico</div>
             </div>
@@ -119,6 +180,8 @@
                     </table>
                 </div>
             </div>
+
+
 
 
             <!--<input type="text" ng-model="min" placeholder="Entre com as dezenas 01 02 ..." />
