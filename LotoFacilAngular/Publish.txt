@@ -19,3 +19,6 @@ https://github.com/alfredo-c/lotofacil2
 git add . -- vai todos arquivos
 git commit -m mensagem a ser comitada
 git push
+
+
+02 03 04 08 11 12 14 16 17 18 19 20 24
