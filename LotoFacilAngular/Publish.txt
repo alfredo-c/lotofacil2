@@ -1,1 +1,21 @@
+1) Para publicar, realizar o publish no VS e depois no CMD executar a linha abaixo:
+
 backand sync --app lotofacil2 --master a47b41c9-ebab-4631-9541-f7da19dc41bd --user c4d2e72f-1231-11e7-8124-06bcf2b21c8c --folder C:/Publish/LotoFacil
+
+Site gerenciador
+https://www.backand.com/apps/#/
+https://www.backand.com/apps/#/app/lotofacil2/hosting/hosting_tree
+
+2) Para verificar o site:
+
+https://hosting.backand.io/lotofacil2/
+
+3) Repositorio
+
+https://github.com/alfredo-c/lotofacil2
+
+-- comitar
+
+git add . -- vai todos arquivos
+git commit -m mensagem a ser comitada
+git push

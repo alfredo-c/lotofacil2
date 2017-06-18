@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>LotoFacil - Gerador de Dezenas</title>
-
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- External Library -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.1/angular-locale_pt-pt.js"></script>
@@ -92,18 +93,97 @@
 
             <hr />
 
-            <h4>Resumo</h4>
+            <h3><b>13 Dezenas escolhidas:</b> {{Ten13ValidaExibir}}</h3>
 
-            <h5><b>13 Dezenas escolhidas:</b> {{Ten13ValidaExibir}}</h5>
 
-            <h5><b>Frequencia 10:</b> {{frequencia10}}</h5>
-            <h5><b>Frequencia 20:</b> {{frequencia20}}</h5>
-            <h5><b>Frequencia 1020:</b> {{frequencia1020}}</h5>
+            <!--<h2>Passo a Passo</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="page-header">
+                        <h4>Frequência 10 Dezenas</h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dezena</th>
+                                <th>Vezes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="frequencia in frequencia10 | orderBy: 'Dezena' ">
+                                <td>{{frequencia.Dezena}}</td>
+                                <td>{{frequencia.Vezes}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="page-header">
+                        <h4>Frequência 20 Dezenas</h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dezena</th>
+                                <th>Vezes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="frequencia in frequencia20 | orderBy: 'Dezena' ">
+                                <td>{{frequencia.Dezena}}</td>
+                                <td>{{frequencia.Vezes}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>-->
+
+
+
+
+            <div class="page-header">
+                <h4>Mapa Geral das Estatísticas</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Dezena</th>
+                                <th>10 dezenas</th>
+                                <th>20 dezenas</th>
+                                <th>10 e 20 dezenas</th>
+                                <th>Todas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="frequencia in mapaGeral">
+                                <td>{{$index+1}}</td>
+                                <td>{{frequencia.Dezena}}</td>
+                                <td>{{frequencia.d10}}</td>
+                                <td>{{frequencia.d20}}</td>
+                                <td>{{frequencia.d1020}}</td>
+                                <td>{{frequencia.dTodas}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!--<h5><b>Frequencia 1020:</b> {{frequencia1020}}</h5>
             <h5><b>Frequencia Todas:</b> {{frequenciaTodas}}</h5>
             <h5><b>Ordenado:</b> {{mapaGeral}}</h5>
             <h5><b>Menos 5:</b> {{mapaGeralMenos5Menos}}</h5>
-            <h5><b>Mais 13:</b>{{mapaGeralMais13Provavel}}</h5>
-            
+            <h5><b>Mais 13:</b>{{mapaGeralMais13Provavel}}</h5>-->
+
 
             <div class="page-header">
                 <h1>Últimas 10 Dezenas</h1>
@@ -155,7 +235,7 @@
 
             <div class="page-header">
                 <h1>Todas Dezenas {{tens.length}}</h1>
-                <h5>Remover tudo.. <img style="cursor:pointer;" ng-click="deletarTodas()" src="/img/delete.png" /></h5>
+                <h5>Remover tudo.. <img style="cursor:pointer;" ng-click="deletarTodas()" src="https://hosting.backand.io/lotofacil2/img/delete.png" /></h5>
                 <div style="cursor:pointer;" ng-click="reset()">Resetar histórico</div>
             </div>
             <div class="row">
@@ -172,7 +252,7 @@
                         <tbody>
                             <tr ng-repeat="ten in tens | orderBy: '-raffle' ">
                                 <td>{{$index+1}}</td>
-                                <td><img style="cursor:pointer;" ng-click="deletar(ten)" src="/img/delete.png" title="{{ten.id}}" /></td>
+                                <td><img style="cursor:pointer;" ng-click="deletar(ten)" src="https://hosting.backand.io/lotofacil2/img/delete.png" title="{{ten.id}}" /></td>
                                 <td>{{ten.raffle}}</td>
                                 <td>{{ten.tens}}</td>
                             </tr>

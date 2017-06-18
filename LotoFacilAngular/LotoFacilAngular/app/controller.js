@@ -117,10 +117,10 @@ app.controller('ReadTens', function ReadTensController($scope, $filter, $http, B
             $scope.Ten13Valida.push(item.Dezena);
             // var filterTen = (item.Dezena < 10) ? '0' + item.Dezena : '' + item.Dezena;
         });
-        $scope.Ten13Valida.sort(function (a, b) {            
-            return b.Dezena - a.Dezena;
+        $scope.Ten13Valida = $scope.mapaGeralMais13Provavel.sort(function (a, b) {
+            return a.Dezena - b.Dezena;
         });
-        angular.forEach($scope.mapaGeralMais13Provavel, function (item) {
+        angular.forEach($scope.Ten13Valida, function (item) {
             var dezena = (item.Dezena < 10) ? '0' + item.Dezena : '' + item.Dezena;
             $scope.Ten13ValidaExibir = $scope.Ten13ValidaExibir + dezena + ' ';
         });
